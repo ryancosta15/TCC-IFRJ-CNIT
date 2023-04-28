@@ -129,7 +129,7 @@ const char INDEX_HTML[] PROGMEM = R"=====(
             <div id="result"></div>
         </div>
         <div class="center">
-            <h2>PULSO</h2>
+            <h2>BRAÇO</h2>
             <label class="switch">
                 <input type="checkbox" id="checkbox" name="arm">
                 <span class="slider round"></span>
