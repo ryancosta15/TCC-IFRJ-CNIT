@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <title>Mão Robótica</title>
+    <style>
+        #letras, #numeros, #exp {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="inicial">
+        <h1>logo marca</h1> <!-- pode ser um img -->
+        <p>Controle a mão de acordo com sua escolha</p>
+        <button onclick="guia(1)">Letras</button>
+        <button onclick="guia(2)">Números</button>
+        <button onclick="guia(3)">Expressões</button>
+    </div>
+    <div id="letras">
+        <h1>Letras</h1>
+        <table>
+            <tr>
+                <td><button>A</button></td>
+                <td><button>B</button></td>
+                <td><button>C</button></td>
+                <td><button>D</button></td>
+                <td><button>E</button></td>
+            </tr>
+            <tr>
+                <td><button>F</button></td>
+                <td><button>G</button></td>
+                <td><button>I</button></td>
+                <td><button>L</button></td>
+                <td><button>M</button></td>
+            </tr>
+            <tr>
+                <td><button>N</button></td>
+                <td><button>O</button></td>
+                <td><button>P</button></td>
+                <td><button>Q</button></td>
+                <td><button>R</button></td>
+            </tr>
+            <tr>
+                <td><button>S</button></td>
+                <td><button>T</button></td>
+                <td><button>U</button></td>
+                <td><button>V</button></td>
+                <td><button>W</button></td>
+            </tr>
+        </table>
+        <button onclick="guia(0)">↩️</button>
+    </div>
+    <div id="numeros">
+        <h1>Números</h1>
+        <table>
+            <tr>
+                <td><button>0</button></td>
+                <td><button>1</button></td>
+                <td><button>2</button></td>
+                <td><button>3</button></td>
+            </tr>
+            <tr>
+                <td><button>4</button></td>
+                <td><button>5</button></td>
+                <td><button>6</button></td>
+                <td><button>7</button></td>
+            </tr>
+            <tr>
+                <td><button>8</button></td>
+                <td><button>9</button></td>
+            </tr>
+        </table>
+        <button onclick="guia(0)">↩️</button>
+    </div>
+    <div id="exp">
+        <button>Oi</button>
+        <br>
+        <button>Bom dia</button>
+        <br>
+        <button>Como vai?</button>
+        <br>
+        <button>Te amo</button>
+        <br>
+        <button onclick="guia(0)">↩️</button>
+    </div>
+    <p class="creditos">Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
+    <p class="creditos">IFRJ - Campus Niterói</p>
+
+    <script>
+        function guia(op) {
+            switch (op) {
+                case 0:
+                    location.reload()
+                case 1:
+                    document.querySelector("#letras").style.display = "initial"
+                    break;
+                case 2:
+                    document.querySelector("#numeros").style.display = "initial"
+                    break;
+                case 3:
+                    document.querySelector("#exp").style.display = "initial"
+                    break;
+            }
+            document.querySelector("#inicial").style.display = "none"
+        }
+    </script>
+</body>
+</html>
