@@ -7,21 +7,101 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <title>Mão Robótica</title>
     <style>
+        :root {
+            --fundo: #EFA74D;
+            --botao-especial: #068587;
+            --texto: aliceblue;
+            font-family: sans-serif;
+        }
         #letras, #numeros, #exp {
             display: none;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fundo);
+        }
+
+        #nuvem-esquerda {
+            position: absolute;
+            top: 0;
+        }
+
+        #nuvem-direita {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        #inicial {
+            display: flex;
+        }
+
+        #inicial, #letras, #numeros, #exp {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 /* logo marca*/ {
+            font-size: 6em;
+            margin-bottom: 0;
+            color: var(--botao-especial);
+        }
+
+        #inicial > p {
+            font-size: 1.5em;
+            margin-top: 0.3em;
+            color: var(--texto);
+            font-weight: bold;
+        }
+
+        button {
+            font-size: 3em;
+            color: var(--texto);
+            background: #068587;
+            box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 3px;
+            border: none;
+            font-weight: bold;
+            padding: 0.25em;
+            cursor: pointer;
+        }
+
+        #inicial > button {
+            margin: 2%;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+        }
+        
+        footer > p {
+            text-align: center;
+            text-transform: uppercase;
+            color: aliceblue;
+            font-weight: bold;
+            opacity: 50%;
+            text-shadow: 3px 0px 7px rgba(81,67,21,0.8), 
+	  -3px 0px 7px rgba(81,67,21,0.8), 
+	  0px 4px 7px rgba(81,67,21,0.8);
         }
     </style>
 </head>
 <body>
+    <img src="Vector 3.svg" id="nuvem-esquerda">
+    <img src="Vector 4.svg" id="nuvem-direita">
     <div id="inicial">
-        <h1>logo marca</h1> <!-- pode ser um img -->
-        <p>Controle a mão de acordo com sua escolha</p>
-        <button onclick="guia(1)">Letras</button>
-        <button onclick="guia(2)">Números</button>
-        <button onclick="guia(3)">Expressões</button>
+        <h1>LOGO MARCA</h1> <!-- pode ser um img -->
+        <p>CONTROLE A MÃO DE ACORDO COM SUA ESCOLA</p>
+        <button onclick="guia(1)">LETRAS</button>
+        <button onclick="guia(2)">NÚMEROS</button>
+        <button onclick="guia(3)">EXPRESSÕES</button>
     </div>
     <div id="letras">
-        <h1>Letras</h1>
+        <h1>LETRAS</h1>
         <table>
             <tr>
                 <td><button>A</button></td>
@@ -55,7 +135,7 @@
         <button onclick="guia(0)">↩️</button>
     </div>
     <div id="numeros">
-        <h1>Números</h1>
+        <h1>NÚMEORS</h1>
         <table>
             <tr>
                 <td><button>0</button></td>
@@ -77,6 +157,7 @@
         <button onclick="guia(0)">↩️</button>
     </div>
     <div id="exp">
+        <h1>EXPRESSÕES</h1>
         <button>Oi</button>
         <br>
         <button>Bom dia</button>
@@ -87,8 +168,11 @@
         <br>
         <button onclick="guia(0)">↩️</button>
     </div>
-    <p class="creditos">Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
-    <p class="creditos">IFRJ - Campus Niterói</p>
+    <footer>
+        <p>Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
+        <p>IFRJ - Campus Niterói</p>
+    </footer>
+    
 
     <script>
         function guia(op) {
@@ -96,13 +180,13 @@
                 case 0:
                     location.reload()
                 case 1:
-                    document.querySelector("#letras").style.display = "initial"
+                    document.querySelector("#letras").style.display = "flex"
                     break;
                 case 2:
-                    document.querySelector("#numeros").style.display = "initial"
+                    document.querySelector("#numeros").style.display = "flex"
                     break;
                 case 3:
-                    document.querySelector("#exp").style.display = "initial"
+                    document.querySelector("#exp").style.display = "flex"
                     break;
             }
             document.querySelector("#inicial").style.display = "none"
