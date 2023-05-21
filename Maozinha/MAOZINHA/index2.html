@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en-us">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +9,9 @@
     <style>
         :root {
             --fundo: #EFA74D;
-            --botao-especial: #068587;
+            --especial: #068587;
             --texto: aliceblue;
             font-family: sans-serif;
-        }
-        #letras, #numeros, #exp {
-            display: none;
         }
 
         body {
@@ -33,6 +30,10 @@
             right: 0;
         }
 
+        #letras, #numeros, #exp {
+            display: none;
+        }
+
         #inicial {
             display: flex;
         }
@@ -44,22 +45,20 @@
         }
         
         h1 /* logo marca*/ {
-            font-size: 6em;
             margin-bottom: 0;
-            color: var(--botao-especial);
+            color: var(--especial);
         }
 
         #inicial > p {
-            font-size: 1.5em;
             margin-top: 0.3em;
             color: var(--texto);
             font-weight: bold;
         }
 
-        button {
+        button[onclick] {
             font-size: 3em;
             color: var(--texto);
-            background: #068587;
+            background: var(--especial);
             box-shadow: 5px 6px 4px rgba(0, 0, 0, 0.25);
             border-radius: 3px;
             border: none;
@@ -68,8 +67,34 @@
             cursor: pointer;
         }
 
-        #inicial > button {
-            margin: 2%;
+        #inicial > button, button[onclick="guia(0)"] {
+            margin: 3%;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            border: 4px solid #068587;
+            border-radius: 4px;
+        }
+
+        section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        section:not(:last-child) {
+            padding-bottom: 10%;
+        }
+
+        section > button, main > button {
+            border: none;
+            background-color: transparent;
+            color: var(--texto);
+            font-weight: bold;
+            font-size: 3em;
+            cursor: pointer;
         }
 
         footer {
@@ -81,18 +106,54 @@
         footer > p {
             text-align: center;
             text-transform: uppercase;
-            color: aliceblue;
+            color: var(--texto);
             font-weight: bold;
             opacity: 50%;
-            text-shadow: 3px 0px 7px rgba(81,67,21,0.8), 
-	  -3px 0px 7px rgba(81,67,21,0.8), 
-	  0px 4px 7px rgba(81,67,21,0.8);
+            text-shadow: 3px 0px 7px rgba(81,67,21,0.8), -3px 0px 7px rgba(81,67,21,0.8), 0px 4px 7px rgba(81,67,21,0.8);
+        }
+
+        @media screen and (orientation: landscape) {
+            h1 {
+                font-size: 6em;
+            }
+
+            #inicial > p {
+                font-size: 1.5em;
+            }
+
+            main {
+                width: 25%;
+            }
+        }
+
+        @media screen and (orientation: portrait) {
+            h1 {
+                margin-top: 2em;
+                font-size: 3em;
+            }
+
+            #inicial > p {
+                font-size: 1em;
+            }
+
+            #inicial > button {
+                margin: 10%;
+            }
+
+            main {
+                margin-top: 10%;
+                width: 80%;
+            }
         }
     </style>
 </head>
 <body>
-    <img src="Vector 3.svg" id="nuvem-esquerda">
-    <img src="Vector 4.svg" id="nuvem-direita">
+    <svg id="nuvem-esquerda" width="232" height="81" viewBox="0 0 232 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M119.372 47.2554C155.521 56.6594 208.186 7.00347 230 -19H-38V47.2554C-31.7674 91.7107 30.0388 81.4518 60.1628 70.7654C100.051 89.5734 116.256 62.9287 119.372 47.2554Z" fill="#068587" stroke="black"/>
+    </svg>
+    <svg id="nuvem-direita" width="195" height="243" viewBox="0 0 195 243" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M166.35 125.225C140.954 79.645 184.868 24.0833 210 2V267H1.00966C-0.0485202 209.76 86.1049 193.683 129.314 192.8C118.732 164.18 149.596 135.825 166.35 125.225Z" fill="#068587" stroke="black"/>
+    </svg>
     <div id="inicial">
         <h1>LOGO MARCA</h1> <!-- pode ser um img -->
         <p>CONTROLE A MÃO DE ACORDO COM SUA ESCOLA</p>
@@ -102,83 +163,83 @@
     </div>
     <div id="letras">
         <h1>LETRAS</h1>
-        <table>
-            <tr>
-                <td><button>A</button></td>
-                <td><button>B</button></td>
-                <td><button>C</button></td>
-                <td><button>D</button></td>
-                <td><button>E</button></td>
-            </tr>
-            <tr>
-                <td><button>F</button></td>
-                <td><button>G</button></td>
-                <td><button>I</button></td>
-                <td><button>L</button></td>
-                <td><button>M</button></td>
-            </tr>
-            <tr>
-                <td><button>N</button></td>
-                <td><button>O</button></td>
-                <td><button>P</button></td>
-                <td><button>Q</button></td>
-                <td><button>R</button></td>
-            </tr>
-            <tr>
-                <td><button>S</button></td>
-                <td><button>T</button></td>
-                <td><button>U</button></td>
-                <td><button>V</button></td>
-                <td><button>W</button></td>
-            </tr>
-        </table>
+        <main>
+            <section>
+                <button>A</button>
+                <button>B</button>
+                <button>C</button>
+                <button>D</button>
+                <button>E</button>
+            </section>
+            <section>
+                <button>F</button>
+                <button>G</button>
+                <button>I</button>
+                <button>L</button>
+                <button>M</button>
+            </section>
+            <section>
+                <button>N</button>
+                <button>O</button>
+                <button>P</button>
+                <button>Q</button>
+                <button>R</button>
+            </section>
+            <section>
+                <button>S</button>
+                <button>T</button>
+                <button>U</button>
+                <button>V</button>
+                <button>W</button>
+            </section>
+        </main>
         <button onclick="guia(0)">↩️</button>
     </div>
     <div id="numeros">
-        <h1>NÚMEORS</h1>
-        <table>
-            <tr>
-                <td><button>0</button></td>
-                <td><button>1</button></td>
-                <td><button>2</button></td>
-                <td><button>3</button></td>
-            </tr>
-            <tr>
-                <td><button>4</button></td>
-                <td><button>5</button></td>
-                <td><button>6</button></td>
-                <td><button>7</button></td>
-            </tr>
-            <tr>
-                <td><button>8</button></td>
-                <td><button>9</button></td>
-            </tr>
-        </table>
+        <h1>NÚMEROS</h1>
+        <main>
+            <section>
+                <button>0</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+            </section>
+            <section>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>7</button>
+            </section>
+            <section>
+                <button>8</button>
+                <button>9</button>
+                <button> </button>
+                <button> </button>
+            </section>
+        </main>
         <button onclick="guia(0)">↩️</button>
     </div>
     <div id="exp">
         <h1>EXPRESSÕES</h1>
-        <button>Oi</button>
-        <br>
-        <button>Bom dia</button>
-        <br>
-        <button>Como vai?</button>
-        <br>
-        <button>Te amo</button>
-        <br>
+        <main>
+            <button>Oi</button>
+            <button>Bom dia</button>
+            <button>Como vai?</button>
+            <button>Te amo!</button>
+        </main>
         <button onclick="guia(0)">↩️</button>
     </div>
     <footer>
         <p>Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
         <p>IFRJ - Campus Niterói</p>
     </footer>
-    
 
     <script>
         function guia(op) {
             switch (op) {
                 case 0:
                     location.reload()
+                    break;
                 case 1:
                     document.querySelector("#letras").style.display = "flex"
                     break;
@@ -191,6 +252,13 @@
             }
             document.querySelector("#inicial").style.display = "none"
         }
+
+        document.querySelectorAll("button:not(button[onclick])").forEach((element) => {
+            element.addEventListener("click", () => {
+                console.log( "/on" + element.innerHTML)
+                // $("#result").load( "/on" + element.innerHTML);
+            })
+        })
     </script>
 </body>
 </html>
