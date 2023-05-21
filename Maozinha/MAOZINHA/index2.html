@@ -49,7 +49,7 @@
             color: var(--especial);
         }
 
-        #inicial > p {
+        p {
             margin-top: 0.3em;
             color: var(--texto);
             font-weight: bold;
@@ -97,6 +97,10 @@
             cursor: pointer;
         }
 
+        p.resposta {
+            font-size: 2em;
+        }
+
         footer {
             position: absolute;
             bottom: 0px;
@@ -132,7 +136,7 @@
                 font-size: 3em;
             }
 
-            #inicial > p {
+            p {
                 font-size: 1em;
             }
 
@@ -194,6 +198,7 @@
             </section>
         </main>
         <button onclick="guia(0)">↩️</button>
+        <p class="resposta">Escolha uma opção</p>
     </div>
     <div id="numeros">
         <h1>NÚMEROS</h1>
@@ -218,6 +223,7 @@
             </section>
         </main>
         <button onclick="guia(0)">↩️</button>
+        <p class="resposta">Escolha uma opção</p>
     </div>
     <div id="exp">
         <h1>EXPRESSÕES</h1>
@@ -228,6 +234,7 @@
             <button>Te amo!</button>
         </main>
         <button onclick="guia(0)">↩️</button>
+        <p class="resposta">Escolha um sinal</p>
     </div>
     <footer>
         <p>Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
@@ -235,10 +242,20 @@
     </footer>
 
     <script>
+        let textosResposta = document.querySelectorAll("p.resposta")
+
         function guia(op) {
+            document.querySelector("#inicial").style.display = "none"
             switch (op) {
                 case 0:
-                    location.reload()
+                    document.querySelector("#inicial").style.display = "flex"
+                    document.querySelector("#letras").style.display = "none"
+                    document.querySelector("#numeros").style.display = "none"
+                    document.querySelector("#exp").style.display = "none"
+
+                    if (textosResposta[0].innerHTML == "Pedido feito!") {
+                        textosResposta.forEach(elemento => elemento.innerHTML = "Escolha um sinal")
+                    }
                     break;
                 case 1:
                     document.querySelector("#letras").style.display = "flex"
@@ -250,13 +267,31 @@
                     document.querySelector("#exp").style.display = "flex"
                     break;
             }
-            document.querySelector("#inicial").style.display = "none"
         }
 
-        document.querySelectorAll("button:not(button[onclick])").forEach((element) => {
-            element.addEventListener("click", () => {
-                console.log( "/on" + element.innerHTML)
-                // $("#result").load( "/on" + element.innerHTML);
+        let botoes = document.querySelectorAll("button:not(button[onclick])")
+
+        async function on(pagina) {
+            botoes.forEach(elemento => elemento.style.color = "rgba(240, 248, 255, 0.534)")
+            textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido...")
+
+            console.log("/on" + pagina)
+            const resposta = await fetch("https://httpbin.org/delay/5")
+            const dados = await resposta.json()
+            console.log(dados) // Futuro tratamento da resposta do ep32 com try e catch ou 200 e 404
+
+            textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
+            botoes.forEach(elemento => elemento.style.color = "var(--texto)")
+        }
+
+        botoes.forEach((elemento) => {
+            elemento.style.color = "var(--texto)"
+            elemento.addEventListener("click", () => {
+                if (elemento.style.color == "var(--texto)") {
+                    on(elemento.innerHTML) // Futuro tratamento de espaços no caso de erro com páginas do esp32
+                } else {
+                    textosResposta.forEach(elemento => elemento.innerHTML = "Espere!")
+                }
             })
         })
     </script>
