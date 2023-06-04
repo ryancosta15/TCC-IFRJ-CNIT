@@ -8,7 +8,7 @@
     <title>Mão Robótica</title>
     <style>
         :root {
-            --fundo: #ffff;
+            --fundo: #f2f2f2;
             --especial: #99A6BF;
             --texto: #304F8C;
             font-family: sans-serif;
@@ -16,7 +16,7 @@
         
         body {
             margin: 0;
-            background-image: url(bla.jpg) ;
+            background-image: url(bla2.jpg) ;
         }
         
         #mao{
@@ -43,10 +43,15 @@
         #letras, #numeros, #exp, #botao, #camera {
             display: none;
         }
-        #main{
+        #inicio{
             display: flex;
         }
-        #botao, #letras, #numeros, #exp, #main, #camera{
+        .voltar{
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+        #botao, #letras, #numeros, #exp, #inicio, #camera{
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -63,7 +68,7 @@
             font-weight: bold;
         }
 
-        button[onclick] {
+        .bot {
             font-size: 3em;
             color: var(--texto);
             background: var(--especial);
@@ -75,11 +80,11 @@
             cursor: pointer;
         }
 
-        #main, #botao > button, button[onclick="guia(0)"] {
+        #inicio, #botao > button, button[onclick="guia(0)"] {
             margin: 3%;
         }
 
-        #main > button{
+        #inicio > button{
             margin: 2%;
         }
 
@@ -160,7 +165,8 @@
                 margin-bottom: 8%;
             }
             #botao > button[onclick="guia(4)"]{
-                margin-bottom: 5%;
+                margin-bottom: 10%;
+                appearance: none;
             }
             #botao > button[onclick="guia(2)"] {
                 margin-bottom: 7%;
@@ -172,7 +178,7 @@
             #botao > button[onclick="guia(1)"]{
                 margin-bottom: 9%;
             }
-            #main > button{
+            #inicio > button{
             margin: 7%;
         }
 
@@ -185,6 +191,7 @@
             }
             body{
                 background-image: none;
+                background-color: var(--fundo);
             }
         }
     </style>
@@ -197,25 +204,29 @@
         <path d="M166.35 125.225C140.954 79.645 184.868 24.0833 210 2V267H1.00966C-0.0485202 209.76 86.1049 193.683 129.314 192.8C118.732 164.18 149.596 135.825 166.35 125.225Z" fill="#274073" stroke="black"/>
     </svg>
         
-    <div id="main">
+    <div id="inicio">
         <img src="ex1.png" alt="logo mão" id="mao">
         <p>ESCOLHA COMO QUER CONTROLAR A MÃO</p>
-        <button onclick="guia(0)">BOTÕES</button>
-        <button onclick="guia('C')">CÂMERA</button>
+        <button onclick="guia(0)" class="bot">BOTÕES</button>
+        <button onclick="guia('C')" class="bot">CÂMERA</button>
     </div>
     <div id="camera">
         <img src="ex1.png" alt="logo mão" id="mao">
         <p>CONTROLE SUA MÃO PELA CÂMERA</p>
         <fieldset></fieldset>
-        <button onclick="guia('I')">↩</button>
+        <button onclick="guia('I')" class="voltar">
+            <img src="Vector 6.png" alt="botão de voltar">
+        </button>   
     </div>
     <div id="botao">
         <img src="ex1.png" alt="logo mão" id="mao">
         <p>ESCOLHA O SINAL QUE SUA MÃO FARÁ</p>
-        <button onclick="guia(1)">LETRAS</button>
-        <button onclick="guia(2)">NÚMEROS</button>
-        <button onclick="guia(3)" id="ultb">EXPRESSÕES</button>
-        <button onclick="guia()">↩</button>        
+        <button onclick="guia(1)" class="bot">LETRAS</button>
+        <button onclick="guia(2)" class="bot">NÚMEROS</button>
+        <button onclick="guia(3)" class="bot" id="ultb">EXPRESSÕES</button>
+        <button onclick="guia('I')" class="voltar">
+            <img src="Vector 6.png" alt="botão de voltar">
+        </button>        
     </div>
     <div id="letras">
         <h1>LETRAS</h1>
@@ -249,8 +260,10 @@
                 <button>W</button>
             </section>
         </main>
-        <button onclick="guia(0)">↩</button>
-        <p class="resposta">Escolha uma opção</p>
+        <button onclick="guia(0)" class="voltar">
+            <img src="Vector 6.png" alt="botão de voltar">
+        </button>
+        <p class="resposta"></p>
     </div>
     <div id="numeros">
         <h1>NÚMEROS</h1>
@@ -274,8 +287,10 @@
                 <button> </button>
             </section>
         </main>
-        <button onclick="guia(0)">↩</button>
-        <p class="resposta">Escolha uma opção</p>
+        <button onclick="guia(0)" class="voltar">
+            <img src="Vector 6.png" alt="botão de voltar">
+        </button>
+        <p class="resposta"></p>
     </div>
     <div id="exp">
         <h1>EXPRESSÕES</h1>
@@ -285,8 +300,10 @@
             <button>Como vai?</button>
             <button>Te amo!</button>
         </main>
-        <button onclick="guia(0)">↩</button>
-        <p class="resposta">Escolha um sinal</p>
+        <button onclick="guia(0)" class="voltar">
+            <img src="Vector 6.png" alt="botão de voltar">
+        </button>
+        <p class="resposta"></p>
     </div>
     <footer>
         <p>Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
@@ -304,11 +321,11 @@
                     document.querySelector("#letras").style.display = "none"
                     document.querySelector("#numeros").style.display = "none"
                     document.querySelector("#exp").style.display = "none"
-                    document.querySelector("#main").style.display = "none"
+                    document.querySelector("#inicio").style.display = "none"
                     document.querySelector("#camera").style.display = "none"
 
                     if (textosResposta[0].innerHTML == "Pedido feito!") {
-                        textosResposta.forEach(elemento => elemento.innerHTML = "Escolha um sinal")
+                        textosResposta.forEach(elemento => elemento.innerHTML = "")
                     }
                     break;
                 
@@ -330,18 +347,11 @@
                 case "I":
                     //inicial
                     document.querySelector("#botao").style.display = "none"
-                    document.querySelector("#letras").style.display = "none"
-                    document.querySelector("#numeros").style.display = "none"
-                    document.querySelector("#exp").style.display = "none"
-                    document.querySelector("#main").style.display = "none"
+                    document.querySelector("#inicio").style.display = "flex"
                     document.querySelector("#camera").style.display = "none"
                 case "C":
-                    //camera
                     document.querySelector("#botao").style.display = "none"
-                    document.querySelector("#letras").style.display = "none"
-                    document.querySelector("#numeros").style.display = "none"
-                    document.querySelector("#exp").style.display = "none"
-                    document.querySelector("#main").style.display = "none"
+                    document.querySelector("#inicio").style.display = "none"
                     document.querySelector("#camera").style.display = "flex"
             }
         }
@@ -351,7 +361,6 @@
         async function on(pagina) {
             botoes.forEach(elemento => elemento.style.color = "rgba(240, 248, 255, 0.534)")
             textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido...")
-
             console.log("/on" + pagina)
             const resposta = await fetch("https://httpbin.org/delay/5")
             const dados = await resposta.json()
