@@ -213,6 +213,7 @@
     <div id="camera">
         <img src="src/logo.png" alt="logo mão" id="mao">
         <p>CONTROLE SUA MÃO PELA CÂMERA</p>
+        <img src="/stream" alt="camera">
         <svg onclick="guia('#inicio')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
             <rect x="1" y="2" width="133" height="134" rx="66.5" fill="white"/>
             <path d="M1 2.00251C116 1.49179 159.5 79.5 35.4999 94.0025M35.4999 94.0025L45.4999 74.0027M35.4999 94.0025L50.9999 105.503" stroke="#092C73" stroke-width="4"/>
@@ -331,7 +332,7 @@
         async function on(pagina) {
             textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido...")
             console.log("/on" + pagina)
-            const resposta = await fetch("https://httpbin.org/delay/5")
+            const resposta = await fetch("/stream")
             const dados = await resposta.json()
             console.log(dados) // Futuro tratamento da resposta do ep32 com try e catch ou 200 e 404
 
