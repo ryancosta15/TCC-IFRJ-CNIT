@@ -11,31 +11,34 @@ const char *ssid = "Maozinha";
 const char *password = "maozinha12345";
  
 WebServer server(80);
+bool status;
 
 void setup(void) {
    Serial.begin(9600);
 
    // Modo AP
-   // WiFi.softAP(ssid, password);
-   // IPAddress myIP = WiFi.softAPIP();
-   // Serial.print("Wifi criado com o SSID: ");
-   // Serial.println(ssid);
-   // Serial.print("Endereço IP: ");
-   // Serial.println(myIP);
+   WiFi.softAP(ssid, password);
+   IPAddress myIP = WiFi.softAPIP();
+   Serial.print("Wifi criado com o SSID: ");
+   Serial.println(ssid);
+   Serial.print("Endereço IP: ");
+   Serial.println(myIP);
 
    // Modo station
-   WiFi.begin(ssid, password);
-   while (WiFi.status() != WL_CONNECTED) {
-         delay(500);
-         Serial.print(".");
-   }
-   Serial.println("Wifi conectado");
-   Serial.println("Endereço IP: ");
-   Serial.println(WiFi.localIP());
+    //  WiFi.begin(ssid, password);
+    //  while (WiFi.status() != WL_CONNECTED) {
+    //        delay(500);
+    //        Serial.print(".");
+    //  }
+    //  Serial.println("Wifi conectado");
+    //  Serial.println("Endereço IP: ");
+    //  Serial.println(WiFi.localIP());
 
    server.on("/", handleRoot);
    server.on("/stream", handleStream);
-   server.on("/onH", onH);
+   server.on("/onC", onC);
+   server.on("/onB", onB);
+   server.on("/onL", onL);
 
    server.onNotFound(handleNotFound);
 
@@ -87,8 +90,17 @@ void handleRoot() {
    server.send(200, "text/html", INDEX_HTML);
 }
 
-void onH() {
-   Serial.print("onH");
+// Letras apenas para teste
+void onC() {
+   Serial.print("090,090,090,090,090,090");
+   server.send(201, "text/html", "Recebido!");
+}
+void onB() {
+   Serial.print("090,090,090,090,090,090");
+   server.send(201, "text/html", "Recebido!");
+}
+void onL() {
+   Serial.print("179,179,179,179,090,179");
    server.send(201, "text/html", "Recebido!");
 }
 

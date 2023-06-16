@@ -334,8 +334,8 @@ const char INDEX_HTML[] PROGMEM = R"=====(
         async function on(pagina) {
             textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido...")
             console.log("/on" + pagina)
-            const resposta = await fetch("/stream")
-            const dados = await resposta.json()
+            const resposta = await fetch("/on" + pagina)
+            const dados = await resposta
             console.log(dados) // Futuro tratamento da resposta do ep32 com try e catch ou 200 e 404
 
             textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
@@ -357,6 +357,7 @@ const char INDEX_HTML[] PROGMEM = R"=====(
     </script>
 </body>
 </html>
+
 
 
 )=====";
