@@ -1,4 +1,3 @@
-//BIBLIOTECAS
 #include <WiFi.h>
 #include <WiFiAP.h>
 #include <WebServer.h>
@@ -97,7 +96,6 @@ void handleStream() {
   status = true;
   WiFiClient client = server.client();
 
-  // Enviar cabeçalho HTTP com tipo de conteúdo multipart/x-mixed-replace
   client.println("HTTP/1.1 200 OK");
   client.println("Access-Control-Allow-Origin: *");
   client.println("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
@@ -106,13 +104,11 @@ void handleStream() {
 
   while (status) {
     server.handleClient();
-    // Capturar imagem da câmera
     camera_fb_t* fb = esp_camera_fb_get();
     if (!fb) {
       break;
     }
 
-    // Enviar parte do quadro da imagem como resposta HTTP
     client.printf("--frame\r\n");
     client.printf("Content-Type: image/jpeg\r\n");
     client.printf("Content-Length: %d\r\n\r\n", fb->len);
@@ -123,11 +119,9 @@ void handleStream() {
     delay(1000 / cameraFramesPerSecond);
   }
 
-  // Enviar marca de finalização
   client.printf("--frame--\r\n");
 }
 
-//DEBUG
 void handleNotFound() {
    String message = "File Not Found\n\n";
    message += "URI: ";
