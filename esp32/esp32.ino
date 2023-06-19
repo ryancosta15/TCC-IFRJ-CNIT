@@ -12,8 +12,8 @@ Servo pulso;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial2.begin(9600, SERIAL_8N1, RX, TX);
+  Serial.begin(115200);
+  Serial2.begin(115200, SERIAL_8N1, RX, TX);
   polegar.attach(32);
   indicador.attach(33);
   medio.attach(25);
@@ -23,32 +23,16 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  String comando = Serial2.readString();
-  Serial.println(comando);
-  if (comando.length() == 23) {
-    int* posicoes = splitStringToArray(comando);
-    Serial.println(posicoes[0]);
+    String comando = Serial2.readString();
+    Serial.println(comando);
 
-    Serial.println("funfando...");
-
-    polegar.write(posicoes[0]);
-    indicador.write(posicoes[1]);
-    medio.write(posicoes[2]);
-    anelar.write(posicoes[3]);
-    mindinho.write(posicoes[4]);
-    pulso.write(posicoes[5]);
-
-    delay(5000);
-
-    polegar.write(0);
-    indicador.write(0);
-    medio.write(0);
-    anelar.write(0);
-    mindinho.write(0);
-    pulso.write(0);
-  }
-  
+    if (comando == "/onC\r\n") {
+      Serial.println("É o C!!!");
+    } else if (comando == "/onB\r\n") {
+      Serial.println("É o B!!!");
+    } if (comando == "/onL\r\n") {
+      Serial.println("É o L!!!");
+    }
 }
 
 int* splitStringToArray(const String& string) {
