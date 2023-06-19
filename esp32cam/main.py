@@ -1,4 +1,4 @@
-from machine import reset, Pin, UART
+from machine import reset, Pin
 from time import sleep
 import camera
 import network
@@ -6,12 +6,6 @@ import usocket
 from index import html
 
 gc.collect()
-
-# Configuração Serial
-uart = UART(0, baudrate=115200)
-uart.init()
-uart.write("teste") # Posteriormente substituir todos print() port uart.write()
-# print() talvez possa funcionar como Serial.print()
 
 # Configuração da câmera
 flash = Pin(4, Pin.OUT)
@@ -24,20 +18,26 @@ if not cam:
 
 print("Câmera funcionando")
 
-# Configuraão do WiFi
-ssid = "PascomSG2.4G"
-password = "ccsg2023"
+# Configuração do WiFi
+ssid = "Maozinha"
+password = "maozinha12345"
 
-network.WLAN(network.AP_IF).active(False)
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(ssid, password)
+# Modo AP
+wifi = network.WLAN(network.AP_IF)
+wifi.active(True)
+wifi.config(essid = ssid, password = password)
+
+# Modo Station
+# wifi = network.WLAN(network.STA_IF)
+# wifi.active(True)
+# wifi.connect(ssid, password)
+
 print("Conectando...")
 sleep(3)
 
-if wlan.isconnected():
+if wifi.isconnected() or wifi.active():
     print("Conectado em: " + ssid)
-    ip = wlan.ifconfig()[0]
+    ip = wifi.ifconfig()[0]
     print("Endereço IP: " + ip)
 else:
     print("Não conectado (Em caso de loop, use CTRL+C e depois CTRL+D)")
@@ -55,9 +55,10 @@ print("Servidor iniciado\n")
 while True:
     try:
         conn, addr = server.accept()
-        print("Conexão de: " + str(addr))
         request = conn.recv(1024).decode().split(' ')[1]
-        print("Requisição: " + request + "\n")
+
+        # print("Conexão de: " + str(addr))
+        # print("Requisição: " + request + "\n")
         
         if request == "/":
             conn.write(b'HTTP/1.1 200 OK\n')
@@ -65,7 +66,6 @@ while True:
             conn.write(b'Connection: close\n')
             # conn.write(b'Content-Length:' + str(len(html)+100) + '\n\n')
             conn.write(html)
-            uart.write("HTML enviado")
         if request == "/stream":
             conn.write(b"HTTP/1.1 200 OK\n")
             conn.write(b"Access-Control-Allow-Origin: *\n")
@@ -73,7 +73,6 @@ while True:
             conn.write(b"Content-Type: multipart/x-mixed-replace; boundary=frame\n")
             conn.write(b"Connection: keep-alive\r\n\r\n")
             conn.setblocking(True)
-            uart.write("Fazendo streaming...")
 
             while True:
                 conn.write(b"--frame\r\n")
@@ -83,7 +82,8 @@ while True:
                 conn.write(img)
                 conn.write(b"\r\n\r\n")
         else:
-            pass
+            conn.write(b"\n")
+            print(request)
         
         conn.close()
 

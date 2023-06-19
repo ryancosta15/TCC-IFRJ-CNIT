@@ -19,12 +19,12 @@ html = '''
             margin: 0;
             background-color: var(--fundo);
         }
-        
-        #camera > img.mão{
-        width: 115.1955px;
-        height: 81.0155px;
 
+        #cameraImg{
+            border: #304F8C solid 2px;
+            border-radius: 5%;
         }
+
         #nuvem-esquerda {
             position: absolute;
             top: 0;
@@ -49,10 +49,6 @@ html = '''
             pointer-events: none;
         }
 
-        .mao {
-            width: 20%;
-        }
-
         #camera, #botao, #letras, #numeros, #exp  {
             display: none;
         }
@@ -61,9 +57,8 @@ html = '''
             display: flex;
         }
 
-        .voltar {
-            cursor: pointer;
-            margin-top: 10px;
+        .logo {
+            width: 15%;
         }
 
         #botao, #letras, #numeros, #exp, #inicio, #camera{
@@ -72,7 +67,7 @@ html = '''
             justify-content: center;
         }
         
-        h1 /* logo marca*/ {
+        h1 {
             margin-bottom: 0;
             color: var(--especial);
         }
@@ -139,6 +134,12 @@ html = '''
             font-size: 2em;
         }
 
+        .voltar {
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100;
+        }
+
         footer {
             position: absolute;
             bottom: 0px;
@@ -161,6 +162,10 @@ html = '''
             #inicio > p, #botao > p, #camera > p {
                 font-size: 1.5em;
             }
+
+            #cameraImg {
+                width: 33%;
+            }
         
             main {
                 width: 25%;
@@ -176,7 +181,7 @@ html = '''
                 display: none;
             }
 
-            .mão {
+            .logo {
                 margin-top: 15%;
                 width: 50%;
             }
@@ -188,6 +193,10 @@ html = '''
 
             p {
                 font-size: 1em;
+            }
+
+            #cameraImg {
+                width: 90%;
             }
 
             footer {
@@ -213,22 +222,22 @@ html = '''
     <img id="vitrines" src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/vitrines.png" alt="">
         
     <div id="inicio">
-        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="mão">
+        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="logo">
         <p>ESCOLHA COMO QUER CONTROLAR A MÃO</p>
         <button onclick="guia('#botao')" class="bot">BOTÕES</button>
         <button onclick="guia('#camera')" class="bot">CÂMERA</button>
     </div>
     <div id="camera">
-        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="mao">
+        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="logo">
         <p>CONTROLE SUA MÃO PELA CÂMERA</p>
-        <img src="testerafa.jpg" id="cameraImg" alt="Vídeo da camera!">
+        <img src="#" id="cameraImg" alt="Vídeo da camera!">
         <svg onclick="guia('#inicio')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
             <rect x="1" y="2" width="133" height="134" rx="66.5" fill="white"/>
             <path d="M1 2.00251C116 1.49179 159.5 79.5 35.4999 94.0025M35.4999 94.0025L45.4999 74.0027M35.4999 94.0025L50.9999 105.503" stroke="#092C73" stroke-width="4"/>
         </svg> 
     </div>
     <div id="botao">
-        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="mão">
+        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="logo">
         <p>ESCOLHA O SINAL QUE SUA MÃO FARÁ</p>
         <button onclick="guia('#letras')" class="bot">LETRAS</button>
         <button onclick="guia('#numeros')" class="bot">NÚMEROS</button>
@@ -265,15 +274,9 @@ html = '''
             <section>
                 <button>4</button>
                 <button>5</button>
-                <button>6</button>
-                <button>7</button>
-            </section>
-            <section>
-                <button>8</button>
-                <button>9</button>
-                <button> </button>
-                <button> </button>
-            </section>
+                <button>-</button>
+                <button>-</button>
+            </section>  
         </main>
         <svg onclick="guia('#botao')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
             <rect x="1" y="2" width="133" height="134" rx="66.5" fill="white"/>
@@ -312,7 +315,7 @@ html = '''
             document.querySelector(op).style.display = "flex"
             
             if (op == "#camera") {
-                document.querySelector("#cameraImg").src = "/stream"
+                document.querySelector("#cameraImg").src = "/stream" 
             } else {
                 document.querySelector("#cameraImg").src = "#"
             }
@@ -325,7 +328,7 @@ html = '''
             console.log("/on" + pagina)
             const resposta = await fetch("/on" + pagina)
             const dados = await resposta
-            console.log(dados) // Futuro tratamento da resposta do ep32 com try e catch ou 200 e 404
+            console.log(dados.statusText) // Futuro tratamento da resposta do ep32 com try e catch ou 200 e 404
 
             textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
             botoes.forEach(elemento => elemento.style.color = "var(--texto)")
@@ -346,6 +349,5 @@ html = '''
     </script>
 </body>
 </html>
-
 
 '''
