@@ -200,7 +200,7 @@ html = '''
             }
 
             footer {
-                margin-bottom: 10%;
+                margin-bottom: 5%;
             }
 
             footer > p {
@@ -324,13 +324,18 @@ html = '''
         let botoes = document.querySelectorAll("button:not(button[onclick])")
 
         async function on(pagina) {
-            textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido...")
+            textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido... Aguarde")
             console.log("/on" + pagina)
             const resposta = await fetch("/on" + pagina)
-            const dados = await resposta
-            console.log(dados.statusText) // Futuro tratamento da resposta do ep32 com try e catch ou 200 e 404
+            .then(resposta => {
+                const dados = resposta
+                console.log(dados)
+                textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
+            })
+            .catch(erro => {
+                textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com a internet")
+            });
 
-            textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
             botoes.forEach(elemento => elemento.style.color = "var(--texto)")
         }
 
