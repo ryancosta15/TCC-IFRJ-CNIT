@@ -3,7 +3,6 @@ from time import sleep
 import camera
 import network
 import usocket
-from index import html
 
 gc.collect()
 
@@ -22,7 +21,7 @@ print("Câmera funcionando")
 ssid = "Maozinha"
 password = "maozinha12345"
 
-# Modo AP
+# Modo AP # OBRIGATÓRIO!
 wifi = network.WLAN(network.AP_IF)
 wifi.active(True)
 wifi.config(essid = ssid, password = password)
@@ -45,7 +44,6 @@ else:
     reset()
 
 # Configuração do servidor
-
 server = usocket.socket(usocket.AF_INET, usocket.SOCK_STREAM)
 server.setsockopt(usocket.SOL_SOCKET, usocket.SO_REUSEADDR, 1)
 server.bind(('', 80))
@@ -59,14 +57,8 @@ while True:
 
         # print("Conexão de: " + str(addr))
         # print("Requisição: " + request + "\n")
-        
-        if request == "/":
-            conn.write(b'HTTP/1.1 200 OK\n')
-            conn.write(b'Content-Type: text/html; charset=utf-8\n')
-            conn.write(b'Connection: close\n')
-            # conn.write(b'Content-Length:' + str(len(html)+100) + '\n\n')
-            conn.write(html)
-        if request == "/stream":
+
+        if request == "/streamESP":
             conn.write(b"HTTP/1.1 200 OK\n")
             conn.write(b"Access-Control-Allow-Origin: *\n")
             conn.write(b"Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept\n")
@@ -81,9 +73,6 @@ while True:
                 conn.write(b"Content-Length: " + str(len(img)) + "\r\n\r\n")
                 conn.write(img)
                 conn.write(b"\r\n\r\n")
-        else:
-            conn.write(b"\n")
-            print(request)
         
         conn.close()
 

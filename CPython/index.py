@@ -315,7 +315,7 @@ html = '''
             document.querySelector(op).style.display = "flex"
             
             if (op == "#camera") {
-                document.querySelector("#cameraImg").src = "/stream" 
+                document.querySelector("#cameraImg").src = "http://IP_PYTHON:8000/streamPython" 
             } else {
                 document.querySelector("#cameraImg").src = "#"
             }
