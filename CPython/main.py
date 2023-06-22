@@ -3,6 +3,11 @@ import threading
 from flask import Flask, Response, request
 from index import html
 from socket import gethostname, gethostbyname
+import serial
+
+laires = serial.Serial('COM6', 115200)
+
+imgGlobal = threading.Lock() # Variável para compartilhamento de imagem/vídeo para uso do OpenCV e transmissão para o site entre threads
 
 # Configuração da stream
 conn = cv2.VideoCapture("http://192.168.4.1:80/streamESP")
@@ -29,8 +34,6 @@ def threadJanela():
     conn.release()
     cv2.destroyAllWindows()
 
-imgGlobal = threading.Lock() # Variável para compartilhamento de imagem/vídeo para uso do OpenCV e transmissão para o site entre threads
-
 # Configuração do servidor
 server = Flask("")
 @server.route('/')
@@ -53,8 +56,9 @@ def streamPython():
 
 @server.route("/<path>")
 def comandoPath(path):
-    print(path) # Implementar para enviar na Serial para ESP32
-
+    print(path + '\r\n')
+    pathNovo = '/' + path + '\r\n'
+    laires.write(b'' + pathNovo.encode())
     return Response((yield(b'Recebido')), mimetype='text/html')
 
 # Início

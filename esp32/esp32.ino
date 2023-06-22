@@ -3,7 +3,7 @@
 #define RX 16
 #define TX 17
 
-Servo polegar;
+Servo dedao;
 Servo indicador;
 Servo medio;
 Servo anelar;
@@ -13,25 +13,56 @@ Servo pulso;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Serial2.begin(115200, SERIAL_8N1, RX, TX);
-  polegar.attach(32);
+  dedao.attach(26);
   indicador.attach(33);
-  medio.attach(25);
-  anelar.attach(26);
+  medio.attach(32);
+  anelar.attach(14);
   mindinho.attach(27);
-  pulso.attach(14);
+  pulso.attach(25);
+
+
+  indicador.write(0);
+  medio.write(0);
+  anelar.write(0);
+  mindinho.write(0);
+  dedao.write(90);
+  pulso.write(0);
 }
 
 void loop() {
-    String comando = Serial2.readString();
-    Serial.println(comando);
+    String comando = Serial.readString();
+    // Serial.println(comando);
 
     if (comando == "/onC\r\n") {
-      Serial.println("É o C!!!");
-    } else if (comando == "/onB\r\n") {
-      Serial.println("É o B!!!");
+      // Serial.println("É o C!!!");
+
+      dedao.write(0);
+      indicador.write(180);
+      medio.write(180);
+      anelar.write(180);
+      mindinho.write(180);
+      pulso.write(90);
+
+    } else if (comando == "/onY\r\n") {
+      // Serial.println("É o Y!!!");
+
+      dedao.write(90);
+      indicador.write(180);
+      medio.write(180);
+      anelar.write(180);
+      mindinho.write(0);
+      pulso.write(0);
+
     } if (comando == "/onL\r\n") {
-      Serial.println("É o L!!!");
+      // Serial.println("É o L!!!");
+
+      pulso.write(0);
+      dedao.write(90);
+      indicador.write(0);
+      medio.write(180);
+      anelar.write(180);
+      mindinho.write(180);
+
     }
 }
 

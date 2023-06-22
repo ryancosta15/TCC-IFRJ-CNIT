@@ -249,9 +249,9 @@
         <h1>LETRAS</h1>
         <main>
             <section>
-                <button>B</button>
                 <button>C</button>
                 <button>L</button>
+                <button>Y</button>
             </section>
         </main>
         <svg onclick="guia('#botao')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
@@ -328,7 +328,7 @@
                 textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
             })
             .catch(erro => {
-                textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com a internet")
+                textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com o servidor")
             });
 
             botoes.forEach(elemento => elemento.style.color = "var(--texto)")

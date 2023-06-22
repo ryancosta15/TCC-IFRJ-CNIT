@@ -251,9 +251,9 @@ html = '''
         <h1>LETRAS</h1>
         <main>
             <section>
-                <button>B</button>
                 <button>C</button>
                 <button>L</button>
+                <button>Y</button>
             </section>
         </main>
         <svg onclick="guia('#botao')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
@@ -287,10 +287,7 @@ html = '''
     <div id="exp">
         <h1>EXPRESSÕES</h1>
         <main>
-            <button>Oi</button>
-            <button>Bom dia</button>
-            <button>Como vai?</button>
-            <button>Te amo!</button>
+            <button>Tchau!</button>
         </main>
         <svg onclick="guia('#botao')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
             <rect x="1" y="2" width="133" height="134" rx="66.5" fill="white"/>
@@ -333,7 +330,7 @@ html = '''
                 textosResposta.forEach(elemento => elemento.innerHTML = "Pedido feito!")
             })
             .catch(erro => {
-                textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com a internet")
+                textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com o servidor")
             });
 
             botoes.forEach(elemento => elemento.style.color = "var(--texto)")
