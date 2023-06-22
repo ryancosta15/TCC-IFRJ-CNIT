@@ -17,48 +17,39 @@
             margin: 0;
             background-color: var(--fundo);
         }
-
         #cameraImg{
             border: #304F8C solid 2px;
             border-radius: 5%;
         }
-
         #nuvem-esquerda {
             position: absolute;
             top: 0;
         }
-
         #nuvem-direita {
             position: absolute;
             bottom: 0;
             right: 0;
         }
-
         #gear {
             position: absolute;
             bottom: 0;
             left: 0;
         }
-
         #vitrines {
             position: absolute;
             top: 0;
             right: 0;
             pointer-events: none;
         }
-
         #camera, #botao, #letras, #numeros, #exp  {
             display: none;
         }
-
         #inicio{
             display: flex;
         }
-
         .logo {
             width: 15%;
         }
-
         #botao, #letras, #numeros, #exp, #inicio, #camera{
             flex-direction: column;
             align-items: center;
@@ -69,13 +60,11 @@
             margin-bottom: 0;
             color: var(--especial);
         }
-
         p {
             margin-top: 0.3em;
             color: var(--texto);
             font-weight: bold;
         }
-
         .bot {
             font-size: 3em;
             color: var(--texto);
@@ -87,38 +76,31 @@
             padding: 0.25em;
             cursor: pointer;
         }
-
         #botao > button {
             margin: 1.5%;
         }
-
         #inicio > button{
             margin: 2%;
         }
-
         main {
             display: flex;
             flex-direction: column;
             border: 4px solid #304F8C;
             border-radius: 4px;
         }
-
         section {
             display: flex;
             flex-direction: row;
             justify-content: space-around;
         }
-
         fieldset{
             display: flex;
             border: 4px solid #304F8C;
             border-radius: 4px;
         }
-
         section:not(:last-child) {
             padding-bottom: 10%;
         }
-
         section > button, main > button {
             border: none;
             background-color: transparent;
@@ -127,17 +109,14 @@
             font-size: 3em;
             cursor: pointer;
         }
-
         p.resposta {
             font-size: 2em;
         }
-
         .voltar {
             cursor: pointer;
             margin-top: 10px;
             width: 100;
         }
-
         footer {
             position: absolute;
             bottom: 0px;
@@ -151,16 +130,13 @@
             font-weight: bold;
             opacity: 55%;
         }
-
         @media screen and (orientation: landscape) {
             h1 {
                 font-size: 6em;
             }
-
             #inicio > p, #botao > p, #camera > p {
                 font-size: 1.5em;
             }
-
             #cameraImg {
                 width: 33%;
             }
@@ -169,38 +145,30 @@
                 width: 25%;
             }
         }
-
         @media screen and (orientation: portrait) {
             #gear {
                 display: none;
             }
-
             #vitrines {
                 display: none;
             }
-
             .logo {
                 margin-top: 15%;
                 width: 50%;
             }
-
             h1 {
                 margin-top: 2em;
                 font-size: 3em;
             }
-
             p {
                 font-size: 1em;
             }
-
             #cameraImg {
                 width: 90%;
             }
-
             footer {
                 margin-bottom: 5%;
             }
-
             footer > p {
                 margin-left: 10%;
                 margin-right: 15%;
@@ -293,16 +261,13 @@
         </svg>
         <p class="resposta"></p>
     </div>
-
     <footer>
         <p>Feito por Rafael Cunha, Ryan Costa, João Pedro Gonçalves e Caio Lopes</p>
         <p id="ultimo">IFRJ - Campus Niterói</p>
     </footer>
-
     <script>
         const PAGINAS = ["#inicio", "#camera", "#botao", "#letras", "#numeros", "#exp"]
         let textosResposta = document.querySelectorAll("p.resposta")
-
         function guia(op) {
             PAGINAS.forEach((pagina) => {
                 document.querySelector(pagina).style.display = "none"
@@ -315,9 +280,7 @@
                 document.querySelector("#cameraImg").src = "#"
             }
         }
-
         let botoes = document.querySelectorAll("button:not(button[onclick])")
-
         async function on(pagina) {
             textosResposta.forEach(elemento => elemento.innerHTML = "Fazendo pedido... Aguarde")
             console.log("/on" + pagina)
@@ -330,10 +293,8 @@
             .catch(erro => {
                 textosResposta.forEach(elemento => elemento.innerHTML = "Erro, verifique sua conexão com o servidor")
             });
-
             botoes.forEach(elemento => elemento.style.color = "var(--texto)")
         }
-
         botoes.forEach((elemento) => {
             elemento.style.color = "var(--texto)"
             elemento.addEventListener("click", () => {
