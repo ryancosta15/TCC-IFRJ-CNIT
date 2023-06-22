@@ -27,7 +27,7 @@ void setup() {
   mindinho.write(0);
   dedao.write(90);
   pulso.write(0);
-}
+} 
 
 void loop() {
     String comando = Serial.readString();
@@ -63,6 +63,70 @@ void loop() {
       anelar.write(180);
       mindinho.write(180);
 
+    } if (comando == "/onTchau\r\n") {
+      indicador.write(0);
+      medio.write(0);
+      anelar.write(0);
+      mindinho.write(0);
+      dedao.write(90);
+      pulso.write(0);
+
+      delay(1000);
+
+
+      pulso.write(0);
+      delay(1000);
+      pulso.write(90);
+      delay(1000);
+      pulso.write(0);
+      delay(1000);
+      pulso.write(90);
+      delay(1000);
+      pulso.write(0);
+    } if (comando == "/on0\r\n") {
+
+      dedao.write(0);
+      indicador.write(180);
+      medio.write(180);
+      anelar.write(180);
+      mindinho.write(180);
+      pulso.write(0);
+
+    } if (comando == "/on1\r\n") {
+      pulso.write(0);
+      dedao.write(0);
+      indicador.write(0);
+      medio.write(180);
+      anelar.write(180);
+      mindinho.write(180);
+    } if (comando == "/on2\r\n") {
+      pulso.write(0);
+      dedao.write(0);
+      indicador.write(0);
+      medio.write(0);
+      anelar.write(180);
+      mindinho.write(180);
+    } if (comando == "/on3\r\n") {
+      pulso.write(0);
+      dedao.write(0);
+      indicador.write(0);
+      medio.write(0);
+      anelar.write(0);
+      mindinho.write(180);
+    } if (comando == "/on4\r\n") {
+      pulso.write(0);
+      dedao.write(0);
+      indicador.write(0);
+      medio.write(0);
+      anelar.write(0);
+      mindinho.write(0);
+    } if (comando == "/on5\r\n") {
+      pulso.write(0);
+      dedao.write(90);
+      indicador.write(0);
+      medio.write(0);
+      anelar.write(0);
+      mindinho.write(0);
     }
 }
 

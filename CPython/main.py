@@ -86,6 +86,7 @@ def handleRoot():
 @server.route('/streamPython')
 def streamPython():
     def stream():
+        count = 0
         while True:
             with imgGlobal:
                 imgBytes = cv2.imencode('.jpg', img)[1].tobytes()
@@ -109,9 +110,11 @@ def streamPython():
                 
                 for teste in statusSalvos:
                     if statusSalvos[teste] == status:
-                        print(teste)
-                        testeEnvio = '/' + teste + '\r\n'
-                        laires.write(b'' + testeEnvio.encode())
+                        print(teste + '\r\n')
+                        if count == 0:
+                            testeEnvio = '/' + teste + '\r\n'
+                            laires.write(b'' + testeEnvio.encode())
+                            count+=1
 
             yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + imgBytes + b'\r\n')
 
