@@ -1,3 +1,5 @@
+const char INDEX_HTML[] PROGMEM = R"=====(
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -276,3 +278,5 @@
     </script>
 </body>
 </html>
+
+)=====";

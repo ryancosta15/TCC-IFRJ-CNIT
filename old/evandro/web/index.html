@@ -17,6 +17,10 @@
             margin: 0;
             background-color: var(--fundo);
         }
+        #cameraImg{
+            border: #304F8C solid 2px;
+            border-radius: 5%;
+        }
         #nuvem-esquerda {
             position: absolute;
             top: 0;
@@ -37,10 +41,10 @@
             right: 0;
             pointer-events: none;
         }
-        #letras, #numeros, #exp  {
+        #camera, #botao, #letras, #numeros, #exp  {
             display: none;
         }
-        #botao{
+        #inicio{
             display: flex;
         }
         .logo {
@@ -130,9 +134,11 @@
             h1 {
                 font-size: 6em;
             }
-
-            #inicio > p, #botao > p {
+            #inicio > p, #botao > p, #camera > p {
                 font-size: 1.5em;
+            }
+            #cameraImg {
+                width: 33%;
             }
         
             main {
@@ -157,6 +163,9 @@
             p {
                 font-size: 1em;
             }
+            #cameraImg {
+                width: 90%;
+            }
             footer {
                 margin-bottom: 5%;
             }
@@ -177,13 +186,32 @@
     </svg>
     <img id="gear" src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/598746a2f4f15f698d6abca66ecdb266c1af1212/web/src/gear.svg" alt="">
     <img id="vitrines" src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/vitrines.png" alt="">
-
+        
+    <div id="inicio">
+        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="logo">
+        <p>ESCOLHA COMO QUER CONTROLAR A MÃO</p>
+        <button onclick="guia('#botao')" class="bot">BOTÕES</button>
+        <button onclick="guia('#camera')" class="bot">CÂMERA</button>
+    </div>
+    <div id="camera">
+        <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="logo">
+        <p>CONTROLE SUA MÃO PELA CÂMERA</p>
+        <img src="#" id="cameraImg" alt="Vídeo da camera!">
+        <svg onclick="guia('#inicio')"class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
+            <rect x="1" y="2" width="133" height="134" rx="66.5" fill="white"/>
+            <path d="M1 2.00251C116 1.49179 159.5 79.5 35.4999 94.0025M35.4999 94.0025L45.4999 74.0027M35.4999 94.0025L50.9999 105.503" stroke="#092C73" stroke-width="4"/>
+        </svg> 
+    </div>
     <div id="botao">
         <img src="https://raw.githubusercontent.com/ryancosta15/TCC-IFRJ-CNIT/main/web/src/logo.png" alt="logo mão" class="logo">
         <p>ESCOLHA O SINAL QUE SUA MÃO FARÁ</p>
         <button onclick="guia('#letras')" class="bot">LETRAS</button>
         <button onclick="guia('#numeros')" class="bot">NÚMEROS</button>
-        <button onclick="guia('#exp')" class="bot" id="ultb">EXPRESSÕES</button>
+        <button onclick="guia('#exp')" class="bot" id="ultb">EXPRESSÕES</button>  
+        <svg onclick="guia('#inicio')" class="voltar" width="134" height="136" viewBox="0 0 134 136" fill="none">
+            <rect x="1" y="2" width="133" height="134" rx="66.5" fill="white"/>
+            <path d="M1 2.00251C116 1.49179 159.5 79.5 35.4999 94.0025M35.4999 94.0025L45.4999 74.0027M35.4999 94.0025L50.9999 105.503" stroke="#092C73" stroke-width="4"/>
+        </svg>
     </div>
     <div id="letras">
         <h1>LETRAS</h1>
@@ -238,13 +266,19 @@
         <p id="ultimo">IFRJ - Campus Niterói</p>
     </footer>
     <script>
-        const PAGINAS = ["#botao", "#letras", "#numeros", "#exp"]
+        const PAGINAS = ["#inicio", "#camera", "#botao", "#letras", "#numeros", "#exp"]
         let textosResposta = document.querySelectorAll("p.resposta")
         function guia(op) {
             PAGINAS.forEach((pagina) => {
                 document.querySelector(pagina).style.display = "none"
             })
             document.querySelector(op).style.display = "flex"
+            
+            if (op == "#camera") {
+                document.querySelector("#cameraImg").src = "http://IP_PYTHON:8000/streamPython" 
+            } else {
+                document.querySelector("#cameraImg").src = "#"
+            }
         }
         let botoes = document.querySelectorAll("button:not(button[onclick])")
         async function on(pagina) {

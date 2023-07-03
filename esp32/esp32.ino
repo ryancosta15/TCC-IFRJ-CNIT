@@ -1,7 +1,13 @@
+#include <WiFi.h>
+#include <WiFiAP.h>
+#include <WebServer.h>
+#include "index.h"
 #include <Servo.h>
 
-#define RX 16
-#define TX 17
+const char *ssid = "Maozinha";
+const char *password = "maozinha12345";
+
+WebServer server(80);
 
 Servo dedao;
 Servo indicador;
@@ -13,6 +19,7 @@ Servo pulso;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+
   dedao.attach(26);
   indicador.attach(33);
   medio.attach(32);
@@ -20,127 +27,172 @@ void setup() {
   mindinho.attach(27);
   pulso.attach(25);
 
-
   indicador.write(0);
   medio.write(0);
   anelar.write(0);
   mindinho.write(0);
   dedao.write(90);
   pulso.write(0);
-} 
 
-void loop() {
-    String comando = Serial.readString();
-    // Serial.println(comando);
+  // Modo AP
+  WiFi.softAP(ssid, password);
+  IPAddress myIP = WiFi.softAPIP();
+  Serial.print("Wifi criado com o SSID: ");
+  Serial.println(ssid);
+  Serial.print("Endereço IP: ");
+  Serial.println(myIP);
 
-    if (comando == "/onC\r\n") {
-      // Serial.println("É o C!!!");
+  // Modo station
+  //  WiFi.begin(ssid, password);
+  //  while (WiFi.status() != WL_CONNECTED) {
+  //        delay(500);
+  //        Serial.print(".");
+  //  }
+  //  Serial.println("Wifi conectado");
+  //  Serial.println("Endereço IP: ");
+  //  Serial.println(WiFi.localIP());
 
-      dedao.write(0);
-      indicador.write(180);
-      medio.write(180);
-      anelar.write(180);
-      mindinho.write(180);
-      pulso.write(90);
+  server.on("/", handleRoot);
+  server.on("/onC", onC);
+  server.on("/onY", onY);
+  server.on("/onL", onL);
+  server.on("/on0", on0);
+  server.on("/on1", on1);
+  server.on("/on2", on2);
+  server.on("/on3", on3);
+  server.on("/on4", on4);
+  server.on("/on5", on5);
+  server.on("/onTchau", onTchau);
+  server.onNotFound(handleNotFound);
 
-    } else if (comando == "/onY\r\n") {
-      // Serial.println("É o Y!!!");
-
-      dedao.write(90);
-      indicador.write(180);
-      medio.write(180);
-      anelar.write(180);
-      mindinho.write(0);
-      pulso.write(0);
-
-    } if (comando == "/onL\r\n") {
-      // Serial.println("É o L!!!");
-
-      pulso.write(0);
-      dedao.write(90);
-      indicador.write(0);
-      medio.write(180);
-      anelar.write(180);
-      mindinho.write(180);
-
-    } if (comando == "/onTchau\r\n") {
-      indicador.write(0);
-      medio.write(0);
-      anelar.write(0);
-      mindinho.write(0);
-      dedao.write(90);
-      pulso.write(0);
-
-      delay(1000);
-
-
-      pulso.write(0);
-      delay(1000);
-      pulso.write(90);
-      delay(1000);
-      pulso.write(0);
-      delay(1000);
-      pulso.write(90);
-      delay(1000);
-      pulso.write(0);
-    } if (comando == "/on0\r\n") {
-
-      dedao.write(0);
-      indicador.write(180);
-      medio.write(180);
-      anelar.write(180);
-      mindinho.write(180);
-      pulso.write(0);
-
-    } if (comando == "/on1\r\n") {
-      pulso.write(0);
-      dedao.write(0);
-      indicador.write(0);
-      medio.write(180);
-      anelar.write(180);
-      mindinho.write(180);
-    } if (comando == "/on2\r\n") {
-      pulso.write(0);
-      dedao.write(0);
-      indicador.write(0);
-      medio.write(0);
-      anelar.write(180);
-      mindinho.write(180);
-    } if (comando == "/on3\r\n") {
-      pulso.write(0);
-      dedao.write(0);
-      indicador.write(0);
-      medio.write(0);
-      anelar.write(0);
-      mindinho.write(180);
-    } if (comando == "/on4\r\n") {
-      pulso.write(0);
-      dedao.write(0);
-      indicador.write(0);
-      medio.write(0);
-      anelar.write(0);
-      mindinho.write(0);
-    } if (comando == "/on5\r\n") {
-      pulso.write(0);
-      dedao.write(90);
-      indicador.write(0);
-      medio.write(0);
-      anelar.write(0);
-      mindinho.write(0);
-    }
+  server.begin();
 }
 
-int* splitStringToArray(const String& string) {
-  int* arr = new int[6]; // Tamanho do array é 6 (número de elementos)
+void loop() {
+  // put your main code here, to run repeatedly:
+  server.handleClient();
+  delay(2);
+}
 
-  char* token = strtok(const_cast<char*>(string.c_str()), ",");
-  int index = 0;
+void handleRoot() {
+  server.send(200, "text/html", INDEX_HTML);
+}
 
-  while (token != NULL) {
-    arr[index] = atoi(token);
-    token = strtok(NULL, ",");
-    index++;
-  }
+void onC() {
+  server.send(201, "text/html", "Recebido!");
+  dedao.write(0);
+  indicador.write(180);
+  medio.write(180);
+  anelar.write(180);
+  mindinho.write(180);
+  pulso.write(90);
+}
+void onY() {
+  server.send(201, "text/html", "Recebido!");
+  dedao.write(90);
+  indicador.write(180);
+  medio.write(180);
+  anelar.write(180);
+  mindinho.write(0);
+  pulso.write(0);
+}
+void onL() {
+  server.send(201, "text/html", "Recebido!");
+  pulso.write(0);
+  dedao.write(90);
+  indicador.write(0);
+  medio.write(180);
+  anelar.write(180);
+  mindinho.write(180);
+}
+void onTchau() {
+  server.send(201, "text/html", "Recebido!");
+  indicador.write(0);
+  medio.write(0);
+  anelar.write(0);
+  mindinho.write(0);
+  dedao.write(90);
+  pulso.write(0);
 
-  return arr;
+  delay(1000);
+
+  pulso.write(0);
+  delay(1000);
+  pulso.write(90);
+  delay(1000);
+  pulso.write(0);
+  delay(1000);
+  pulso.write(90);
+  delay(1000);
+  pulso.write(0);
+}
+void on0() {
+  server.send(201, "text/html", "Recebido!");
+  dedao.write(0);
+  indicador.write(180);
+  medio.write(180);
+  anelar.write(180);
+  mindinho.write(180);
+  pulso.write(0);
+}
+void on1() {
+  server.send(201, "text/html", "Recebido!");
+  pulso.write(0);
+  dedao.write(0);
+  indicador.write(0);
+  medio.write(180);
+  anelar.write(180);
+  mindinho.write(180);
+}
+void on2() {
+  server.send(201, "text/html", "Recebido!");
+  pulso.write(0);
+  dedao.write(0);
+  indicador.write(0);
+  medio.write(0);
+  anelar.write(180);
+  mindinho.write(180);
+}
+void on3() {
+  server.send(201, "text/html", "Recebido!");
+  pulso.write(0);
+  dedao.write(0);
+  indicador.write(0);
+  medio.write(0);
+  anelar.write(0);
+  mindinho.write(180);
+}
+void on4() {
+  server.send(201, "text/html", "Recebido!");
+  pulso.write(0);
+  dedao.write(0);
+  indicador.write(0);
+  medio.write(0);
+  anelar.write(0);
+  mindinho.write(0);
+}
+void on5() {
+  server.send(201, "text/html", "Recebido!");
+  pulso.write(0);
+  dedao.write(90);
+  indicador.write(0);
+  medio.write(0);
+  anelar.write(0);
+  mindinho.write(0);
+}
+
+
+void handleNotFound() {
+   String message = "File Not Found\n\n";
+   message += "URI: ";
+   message += server.uri();
+   message += "\nMethod: ";
+   message += (server.method() == HTTP_GET) ? "GET" : "POST";
+   message += "\nArguments: ";
+   message += server.args();
+   message += "\n";
+   for (uint8_t i = 0; i < server.args(); i++) {
+   message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
+   }
+   server.send(404, "text/plain", message);
 }
